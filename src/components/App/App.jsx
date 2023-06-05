@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import { Modal } from 'components/Modal/Modal';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Button } from 'components/Button/Button';
@@ -7,18 +6,20 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Loader } from 'components/Loader/Loader';
 import { getImages } from 'components/services/apiService';
 import { toastConfig } from 'components/services/utils';
-// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
-import { AppContainer, ModalImage } from './App.styled';
+import { ContainerApp, ModalImage } from './App.styled';
 
 export class App extends Component {
   state = {
+    page: 1,
+    totalHits: 0,
     largeImageURL: '',
     searchQuery: '',
-    page: 1,
     hits: [],
     loading: false,
-    totalHits: 0,
+    
   };
 
   componentDidUpdate(_, prevState) {
@@ -64,7 +65,7 @@ export class App extends Component {
   };
 
   handleLoadMore = () => {
-    this.setState((prevState) => ({ currentPage: prevState.currentPage + 1 }));
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   toggleModal = (largeImageURL = '') => {
@@ -75,7 +76,7 @@ export class App extends Component {
     const { loading, hits, largeImageURL, totalHits } = this.state;
     const showLoadMoreBtn = !loading && hits.length !== totalHits;
     return (
-      <AppContainer>
+      <ContainerApp>
         <Searchbar onSearchSubmit={this.handleSearchFormSubmit} />
         {hits.length > 0 && (
           <ImageGallery images={hits} handleImageClick={this.toggleModal} />
@@ -90,7 +91,7 @@ export class App extends Component {
           </Modal>
         )}
         <ToastContainer />
-      </AppContainer>
+      </ContainerApp>
     );
   }
 }

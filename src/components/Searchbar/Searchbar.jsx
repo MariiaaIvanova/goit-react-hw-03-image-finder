@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header, SearchForm, SearchButton, SearchInput, BtnSpan } from './Searchbar.styled';
+import { FiSearch } from 'react-icons/fi';
+import { Header, SearchForm, SearchButton, SearchButtonLabel, SearchInput } from './Searchbar.styled';
 
 export class Searchbar extends Component {
     static propTypes = {
@@ -20,10 +21,11 @@ export class Searchbar extends Component {
     }
    render() {
     return (
-      <Header>
+     <Header >
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchButton type="submit">
-            <BtnSpan>Search</BtnSpan>
+            <FiSearch style={{ width: 22, height: 22 }} />
+            <SearchButtonLabel>Search</SearchButtonLabel>
           </SearchButton>
 
           <SearchInput
